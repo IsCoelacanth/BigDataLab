@@ -15,7 +15,7 @@ import org.apache.hadoop.mapreduce.lib.output.TextOutputFormat;
 import org.apache.hadoop.util.GenericOptionsParser;
 
 @SuppressWarnings("deprecation")
-public class StopWordSkipper {
+public class stopWords {
 
     public static Path stopWordsFiles;
 
@@ -32,25 +32,13 @@ public class StopWordSkipper {
         Job job = new Job(conf, "StopWordSkipper");
         job.setOutputKeyClass(Text.class);
         job.setOutputValueClass(IntWritable.class);
-        job.setJarByClass(StopWordSkipper.class);
-        job.setMapperClass(StopWords.class);
+        job.setJarByClass(stopWords.class);
+        job.setMapperClass(stopWordMapper.class);
         job.setNumReduceTasks(0);
         job.setInputFormatClass(TextInputFormat.class);
         job.setOutputFormatClass(TextOutputFormat.class);
         stopWordsFiles = new Path(args[2]);
 
-        // List<String> other_args = new ArrayList<String>();
-        // Logic to read the location of stop word file from the command line
-        // The argument after -skip option will be taken as the location of stop
-        // word file
-
-        /*
-         * for (int i = 0; i < args.length; i++) { if ("-skip".equals(args[i])) {
-         * DistributedCache.addCacheFile(new Path(args[++i]).toUri(),
-         * job.getConfiguration()); if (i+1 < args.length) { i++; } else { break; } }
-         * 
-         * other_args.add(args[i]); }
-         */
 
         FileInputFormat.setInputPaths(job, new Path(args[0]));
         FileOutputFormat.setOutputPath(job, new Path(args[1]));

@@ -13,14 +13,14 @@ import org.apache.hadoop.mapreduce.lib.input.TextInputFormat;
 import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
 import org.apache.hadoop.mapreduce.lib.output.TextOutputFormat;
 
-public class StopWords extends Mapper<LongWritable, Text, Text, IntWritable> {
+public class stopWordMapper extends Mapper<LongWritable, Text, Text, IntWritable> {
     private final static IntWritable one = new IntWritable(1);
     private Text word = new Text();
-    private Set stopWords = new HashSet();
+    private Set StopWords = new HashSet();
 
     @Override
     protected void setup(Context context) throws IOException, InterruptedException {
-        readFile(StopWordSkipper.stopWordsFiles);
+        readFile(stopWords.stopWordsFiles);
     }
 
     /**
@@ -35,10 +35,10 @@ public class StopWords extends Mapper<LongWritable, Text, Text, IntWritable> {
 
         while (tokenizer.hasMoreTokens()) {
             String token = tokenizer.nextToken();
-            if (stopWords.contains(token)) {
-                context.getCounter(StopWordSkipper.COUNTERS.STOPWORDS).increment(1L);
+            if (StopWords.contains(token)) {
+                context.getCounter(stopWords.COUNTERS.STOPWORDS).increment(1L);
             } else {
-                context.getCounter(StopWordSkipper.COUNTERS.GOODWORDS).increment(1L);
+                context.getCounter(stopWords.COUNTERS.GOODWORDS).increment(1L);
                 word.set(token);
                 context.write(word, null);
             }
@@ -51,7 +51,7 @@ public class StopWords extends Mapper<LongWritable, Text, Text, IntWritable> {
             BufferedReader bufferedReader = new BufferedReader(new FileReader(filePath.toString()));
             String stopWord = null;
             while ((stopWord = bufferedReader.readLine()) != null) {
-                stopWords.add(stopWord.toLowerCase());
+                StopWords.add(stopWord.toLowerCase());
             }
             bufferedReader.close();
         } catch (IOException ex) {

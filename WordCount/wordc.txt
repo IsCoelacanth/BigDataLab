@@ -1,0 +1,9 @@
+decision trees are a very effective method of supervised
+learning. it aims is the partition of a dataset into groups as
+homogeneous as possible in terms of the variable to be
+predicted. it takes as input a set of classified data, and outputs a
+tree that resembles to an orientation diagram where each end
+node leaf is a decision a class and each non final node
+internal represents a test. each leaf represents the decision of
+belonging to a class of data verifying all tests path from the
+root to the leaf.

@@ -7,21 +7,7 @@ import java.security.NoSuchAlgorithmException;
 import java.util.BitSet;
 import java.util.Collection;
 
-/**
- * Implementation of a Bloom-filter, as described here:
- * http://en.wikipedia.org/wiki/Bloom_filter
- *
- * For updates and bugfixes, see http://github.com/magnuss/java FilterBloom
- *
- * Inspired by the Simpl FilterBloom-class written by Ian Clarke. This
- * implementation provides a more evenly distributed Hash-function by
- * using a proper digest instead of the Java RNG. Many of the changes
- * were proposed in comments in his blog:
- * http://blog.locut.us/2008/01/12/a-decent-stand-alone-java-bloom-filter-implementation/
- *
- * @param <E> Object type that is to be inserted into the Bloom filter, e.g. String or Integer.
- * @author Magnus Skjegstad <magnus@skjegstad.com>
- */
+
 public class FilterBloom<E> implements Serializable {
     private BitSet bitset;
     private int bitSetSize;

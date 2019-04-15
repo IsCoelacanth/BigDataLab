@@ -1,5 +1,5 @@
 package bfcode;
-
+import java.lang.System.*;
 import java.io.IOException;
 
 import org.apache.hadoop.io.LongWritable;
@@ -18,8 +18,9 @@ public class FilterMapper extends Mapper<LongWritable, Text, Text, NullWritable>
         int expectedNumberOfElements = 100;
         filter = new FilterBloom<String>(falsePositiveProbability, expectedNumberOfElements);
         filter.add("bad service");
-        filter.add("unhappy");
-        filter.add("unsatisfied");
+        filter.add("iron man");
+        filter.add("marvel");
+        filter.add("end game");
     }
 
     protected void map(LongWritable key, Text value, Context context)
@@ -27,6 +28,7 @@ public class FilterMapper extends Mapper<LongWritable, Text, Text, NullWritable>
 
         String[] tokens = value.toString().split(",");
         for(String token :tokens){
+	    System.out.println(token);
             if(filter.contains(token)){
                 context.write(value, NullWritable.get());
             }
